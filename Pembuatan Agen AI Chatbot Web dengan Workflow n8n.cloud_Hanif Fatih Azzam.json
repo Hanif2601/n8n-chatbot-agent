@@ -1,0 +1,114 @@
+{
+  "name": "Pembuatan Agen AI Chatbot Web dengan Workflow n8n.cloud_Hanif Fatih Azzam",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "13019473-8e3d-4df2-a66f-0cce4794cef3",
+      "name": "When chat message received",
+      "webhookId": "2639c60e-b9ea-4059-abe8-5160aff9dc93"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistaKamu adalah Asisten Layanan Pelanggan NF Academy yang ramah. Tugasmu menjawab pertanyaan seputar informasi produk, harga, dan layanan. Jika informasi tidak ada, jawab secara jujur dan arahkan pengguna ke situs web resmi.nt"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "280c77a7-0beb-4c43-a5a7-c1c7e5024a44",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        208
+      ],
+      "id": "25215afd-7b8e-440a-8436-8389f955c948",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "iAttNfuxAfVju0nX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        208
+      ],
+      "id": "ceb5943a-5092-46e2-a85f-5c926dba4d4e",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e60b1c66-3288-4042-8123-77fb98700d73",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dc96f10ae7dc95d3c138575ba243a0a167923dbcb524841d451aadf9135d5fb3"
+  },
+  "nodeGroups": [],
+  "id": "skPLbabAsQPEt4zr",
+  "tags": []
+}
